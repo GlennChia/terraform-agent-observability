@@ -1,0 +1,51 @@
+services:
+  tfc-agent:
+    image: hashicorp/tfc-agent:latest
+    platform: linux/amd64
+    environment:
+      - TFC_AGENT_TOKEN=${TFC_AGENT_TOKEN}
+      - TFC_AGENT_NAME=${TFC_AGENT_NAME}
+      - TFC_AGENT_OTLP_ADDRESS=otel-collector:4317
+    depends_on:
+      - otel-collector
+    restart: unless-stopped
+
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:0.73.0
+    command: ["--config=/etc/otel-collector-config.yaml"]
+    volumes:
+      - ./otel-collector/config.yml:/etc/otel-collector-config.yaml
+    ports:
+      - 4317:4317   # OTLP gRPC receiver
+      - 8888:8888   # Prometheus metrics exposed by the collector
+      - 8889:8889   # Prometheus exporter metrics
+    depends_on:
+      - prometheus
+      - jaeger
+    restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./prometheus/config.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - 9090:9090
+
+  grafana:
+    image: grafana/grafana:latest
+    volumes:
+      - ./grafana/grafana-data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning
+    user: "0"
+    ports:
+      - 3000:3000
+
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    ports:
+      - 16686:16686  # Jaeger UI
+      - 14250:14250  # OTLP gRPC receiver
+      - 14268:14268  # Jaeger HTTP receiver
+      - 4318:4318    # OTLP HTTP receiver
+    environment:
+      - COLLECTOR_OTLP_ENABLED=true
