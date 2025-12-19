@@ -95,92 +95,94 @@ terraform init
 terraform apply
 ```
 
-## 4.2 First workspace plan
+## 4.2 GitHub repo created for testing
 
-First workspace starts `Planning`
+GitHub repository created with simple Terraform resources.
 
-![workspace planning](./docs/03-testing/01-first-workspace/01-workspace-planning.png)
+![github repo](./docs/03-testing/01-github/01-github-repo.png)
 
-Agent is `Busy`
+## 4.3 First workspace plan
 
-![agent busy](./docs/03-testing/01-first-workspace/02-agent-busy.png)
+Agent processes workspace runs one at a time. Agent is `Busy`
+
+![agent busy](./docs/03-testing/02-first-workspace/01-agent-busy.png)
 
 Dashboard shows data about the first run
 
-![dashboard](./docs/03-testing/01-first-workspace/03-dashboard.png)
+![dashboard](./docs/03-testing/02-first-workspace/02-dashboard.png)
 
-## 4.3 Workspaces applied
+## 4.4 Workspaces applied
 
-### 4.3.1 HCP TF view
+### 4.4.1 HCP TF view
 
 All workspaces are eventually applied
 
-![workspaces applied](./docs/03-testing/02-first-run/01-workspaces-applied.png)
+![workspaces applied](./docs/03-testing/03-first-run/01-workspaces-applied.png)
 
 Agent transitions to `Idle`
 
-![agent idle](./docs/03-testing/02-first-run/02-agent-idle.png)
+![agent idle](./docs/03-testing/03-first-run/02-agent-idle.png)
 
-### 4.3.2 Grafana dashboard
+### 4.4.2 Grafana dashboard
 
 Dashboard with metrics across all the workspace runs
 
-![dashboard](./docs/03-testing/02-first-run/03-dashboard.png)
+![dashboard](./docs/03-testing/03-first-run/03-dashboard.png)
 
 Zoomed in view for various dashboard sections - Job and workspace performance
 
-![dashboard1](./docs/03-testing/02-first-run/04-dashboard1.png)
+![dashboard1](./docs/03-testing/03-first-run/04-dashboard1.png)
 
 Resource utilization (Pool-wide)
 
-![dashboard2](./docs/03-testing/02-first-run/05-dashboard2.png)
+![dashboard2](./docs/03-testing/03-first-run/05-dashboard2.png)
 
 Runtime metrics (Pool-wide)
 
-![dashboard3](./docs/03-testing/02-first-run/06-dashboard3.png)
+![dashboard3](./docs/03-testing/03-first-run/06-dashboard3.png)
 
 Individual agent details
 
-![dashboard4](./docs/03-testing/02-first-run/07-dashboard4.png)
+![dashboard4](./docs/03-testing/03-first-run/07-dashboard4.png)
 
-### 4.3.3 Prometheus metrics
+### 4.4.3 Prometheus metrics
 
 Some metrics are available during runs. For example
 
 - tfc_agent_core_profiler_cpu_busy_percent
 - tfc_agent_core_profiler_memory_used_percent
 
-![agent metric during run](./docs/03-testing/03-prometheus-metrics/01-agent-metric-during-run.png)
+![agent metric during run](./docs/03-testing/04-prometheus-metrics/01-agent-metric-during-run.png)
 
 `tfc_agent_core_profiler_memory_used_percent`
 
-![agent memory](./docs/03-testing/03-prometheus-metrics/02-agent-memory.png)
+![agent memory](./docs/03-testing/04-prometheus-metrics/02-agent-memory.png)
 
 `tfc_agent_core_profiler_cpu_busy_percent`
 
-![agent cpu](./docs/03-testing/03-prometheus-metrics/03-agent-cpu.png)
+![agent cpu](./docs/03-testing/04-prometheus-metrics/03-agent-cpu.png)
 
-### 4.3.4 Jaeger
+### 4.4.4 Jaeger
 
 Jaeger UI shows 10 traces. Each workspace has 2 traces - 1 for plan, and 1 for apply.
 
-![jaeger ui traces](./docs/03-testing/04-jaeger-traces/01-jaeger-ui-traces.png)
+![jaeger ui traces](./docs/03-testing/05-jaeger-traces/01-jaeger-ui-traces.png)
 
 Example of a plan trace
 
-![plan overview](./docs/03-testing/04-jaeger-traces/02-plan-overview.png)
+![plan overview](./docs/03-testing/05-jaeger-traces/02-plan-overview.png)
 
 This can be drilled down to the span information
 
-![plan span](./docs/03-testing/04-jaeger-traces/03-plan-span.png)
+![plan span](./docs/03-testing/05-jaeger-traces/03-plan-span.png)
 
 Example of an apply trace
 
-![apply overview](./docs/03-testing/04-jaeger-traces/04-apply-overview.png)
+![apply overview](./docs/03-testing/05-jaeger-traces/04-apply-overview.png)
 
 This can be drilled down to the span information
 
-![apply span](./docs/03-testing/04-jaeger-traces/05-apply-span.png)
+![apply span](./docs/03-testing/05-jaeger-traces/05-apply-span.png)
 
 # 5. Cleanup
 
