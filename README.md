@@ -4,6 +4,8 @@ This repository provides demo code on how to visualize Terraform agent telemetry
 
 ![dashboard cover](./docs/01-architecture/02-dashboard-cover.png)
 
+Read the accompanying [Medium blog post](https://medium.com/hashicorp-engineering/hcp-terraform-agent-observability-with-opentelemetry-prometheus-grafana-and-jaeger-2de6eca1b319) or [Substack blog post](https://open.substack.com/pub/hashicorpengineering/p/hcp-terraform-agent-observability) for more details about the integration and additional screenshots.
+
 # 1. Architecture
 
 ![architecture diagram](./docs/01-architecture/01-architecture-diagram.png)
